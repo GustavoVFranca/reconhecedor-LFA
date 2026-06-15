@@ -120,8 +120,9 @@ class Lexer:
             elif self.current_char == '/':
                 self.advance()
                 if self.current_char == '/':
+                    comentario_str = '//'
+                    self.advance()
                     while self.current_char != None and self.current_char != '\n':
-                        comentario_str = '//'
                         comentario_str += self.current_char
                         self.advance()
                     tokens.append(Token(TT_COMMENT, comentario_str))
@@ -256,8 +257,6 @@ class Lexer:
             self.advance()
 
         token_type = PALAVRAS_RESERVADAS.get(id_str, TT_IDENTIFIER)
-        if token_type == TT_IDENTIFIER:
-            return Token(TT_IDENTIFIER, id_str)
         return Token(token_type, id_str)
     
 class Error:
